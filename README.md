@@ -149,14 +149,5 @@ const API_BASE_URL = "http://EC2_PUBLIC_IP:3000";
 3. `ESG 리포트 생성` 버튼 클릭
 4. ESG 개요, 탄소 감축 목표, 최근 실적, 전망, 계획 및 목표가 표시되는지 확인
 
-## 8. 보안 주의사항
-
-- `.env` 파일은 GitHub에 업로드하지 않습니다.
-- Gemini API Key를 코드에 직접 작성하지 않습니다.
-- 실제 운영 계정, 비밀번호, API Key를 README에 작성하지 않습니다.
-- 제출 전 `.gitignore`에 `.env`가 포함되어 있는지 확인합니다.
-
-## 9. 제출 링크
-
-- GitHub Repository: 제출 시 본인 GitHub 주소 입력
-- Client URL: 제출 시 S3 정적 웹사이트 주소 입력
+- RDS: 사용자가 검색한 기업명과 ESG 분석 결과를 누적 저장
+- /api/history: 최근 저장된 ESG 분석 결과 조회
