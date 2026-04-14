@@ -1,0 +1,266 @@
+:root {
+  --bg: #0f172a;
+  --panel: #111827;
+  --card: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --line: #e2e8f0;
+  --accent: #16a34a;
+  --accent-dark: #15803d;
+  --danger: #dc2626;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, "Noto Sans KR", sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(34, 197, 94, 0.22), transparent 30%),
+    linear-gradient(135deg, #0f172a 0%, #1e293b 48%, #052e16 100%);
+  color: white;
+  min-height: 100vh;
+}
+
+.page {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 48px 0;
+}
+
+.hero {
+  padding: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(18px);
+  border-radius: 32px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(34, 197, 94, 0.18);
+  color: #bbf7d0;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+h1 {
+  margin: 20px 0 12px;
+  font-size: clamp(40px, 8vw, 76px);
+  letter-spacing: -0.06em;
+  line-height: 0.95;
+}
+
+.hero p {
+  max-width: 720px;
+  color: #d1d5db;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.search-box {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+input {
+  width: 100%;
+  padding: 18px 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  outline: none;
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--text);
+  font-size: 16px;
+}
+
+button {
+  border: 0;
+  border-radius: 18px;
+  padding: 16px 22px;
+  background: var(--accent);
+  color: white;
+  font-weight: 800;
+  font-size: 15px;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  background: var(--accent-dark);
+}
+
+.sample-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.sample-btn {
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #e5e7eb;
+}
+
+.status-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin: 22px 0;
+}
+
+.status-panel > div {
+  padding: 20px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--text);
+}
+
+.status-label {
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.loading,
+.error,
+.result {
+  margin-top: 22px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.98);
+  color: var(--text);
+  padding: 28px;
+}
+
+.hidden {
+  display: none;
+}
+
+.spinner {
+  width: 34px;
+  height: 34px;
+  border: 4px solid #dcfce7;
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.loading.hidden {
+  display: none;
+}
+
+.error {
+  border: 1px solid #fecaca;
+  color: var(--danger);
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: start;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 20px;
+  margin-bottom: 22px;
+}
+
+.result-header h2 {
+  margin: 14px 0 0;
+  font-size: 34px;
+  letter-spacing: -0.03em;
+}
+
+.result-header .badge {
+  color: #166534;
+  background: #dcfce7;
+}
+
+#createdAt {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.card {
+  padding: 24px;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  background: #f8fafc;
+}
+
+.card span {
+  display: inline-flex;
+  margin-bottom: 12px;
+  color: var(--accent-dark);
+  font-weight: 900;
+}
+
+.card h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.card p {
+  margin: 0;
+  color: #334155;
+  line-height: 1.75;
+}
+
+.wide {
+  grid-column: 1 / -1;
+}
+
+.caution {
+  margin: 22px 0 0;
+  padding: 16px;
+  border-radius: 18px;
+  color: #92400e;
+  background: #fef3c7;
+  line-height: 1.6;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 720px) {
+  .hero {
+    padding: 28px;
+  }
+
+  .search-box,
+  .status-panel,
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .result-header {
+    flex-direction: column;
+  }
+}

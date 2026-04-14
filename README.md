@@ -1,282 +1,162 @@
-# Nxt-Classic-Architecture-v2
+# ESG Insight Finder
 
-## 📚 프로젝트 개요
+기업명을 검색하면 Gemini API가 ESG 정보, 탄소 감축 목표, 최근 실적, 향후 전망, 계획 및 목표를 한국어로 요약해주는 AI 기반 ESG 분석 웹 애플리케이션입니다.
 
-이 레포지토리는 **3티어 아키텍처(3-Tier Architecture)** 에 대한 이해와 실습을 제공하기 위한 교육용 프로젝트입니다.
-기본적인 웹 서버부터 복잡한 서버리스 아키텍처까지 단계별로 학습할 수 있도록 구성되어 있습니다.
+## 1. 프로젝트 개요
 
-## 🏗️ 3티어 아키텍처란?
+이 프로젝트는 수업에서 실습한 AI Note App 구조를 응용한 개인 과제입니다.  
+기존 노트 생성 기능을 그대로 사용하지 않고, 기업 ESG 분석 리포트 생성 기능으로 변경했습니다.
 
-3티어 아키텍처는 애플리케이션을 세 개의 논리적 계층으로 분리하는 소프트웨어 아키텍처 패턴입니다:
+사용자는 웹 화면에서 기업명을 입력하고, 백엔드 서버는 Gemini API를 호출하여 ESG 분석 결과를 생성합니다.  
+클라이언트는 결과를 카드형 대시보드 형태로 보여줍니다.
 
-- **프레젠테이션 티어 (Presentation Tier)**: 사용자 인터페이스 계층
-- **애플리케이션 티어 (Application Tier)**: 비즈니스 로직 처리 계층
-- **데이터 티어 (Data Tier)**: 데이터 저장 및 관리 계층
+## 2. 주요 기능
 
-## 📁 프로젝트 구조
+- 기업명 기반 ESG 리포트 생성
+- ESG 개요 요약
+- 탄소 감축 목표 요약
+- 최근 실적 요약
+- 향후 전망 요약
+- 계획 및 목표 요약
+- 최근 검색 기업명 저장
+- Gemini API 오류 처리
+- API Key를 `.env`로 분리 관리
 
+## 3. 사용한 AWS 리소스
+
+- Amazon S3  
+  React 없이 HTML, CSS, JavaScript로 구성한 정적 클라이언트를 호스팅합니다.
+
+- Amazon EC2  
+  Node.js Express 백엔드 서버를 실행합니다.
+
+- Security Group  
+  SSH 접속과 웹/API 접속을 제어합니다.
+
+- Gemini API  
+  기업명 기반 ESG 분석 결과를 생성합니다.
+
+## 4. 아키텍처
+
+```txt
+사용자 브라우저
+    ↓
+S3 정적 웹사이트 클라이언트
+    ↓ HTTP 요청
+EC2 Node.js Express 서버
+    ↓
+Gemini API
+    ↓
+ESG 분석 결과 반환
 ```
-Nxt-Classic-Architecture-v2/
-├── 1.Tutorial/              # 기초 튜토리얼
-│   ├── 1.SimpleServer/      # 간단한 서버 구현
-│   ├── 2.html/             # 정적 웹페이지
-│   └── 3.Resume/           # React 기반 이력서 앱
-├── 2.RandomTextApp/        # 3티어 랜덤 명언 앱
-├── 3.AiNoteApp/           # 3티어 AI 노트 앱
-└── 4.lambda/              # 서버리스 아키텍처
-```
 
-## 🎯 학습 목표
+## 5. 로컬 실행 방법
 
-1. **기본 웹 서버 이해**: HTTP 서버의 동작 원리
-2. **3티어 아키텍처 구현**: 완전한 웹 애플리케이션 개발
-3. **데이터베이스 연동**: 백엔드와 데이터베이스 통합
-4. **AI 서비스 활용**: 클라우드 AI 서비스 연동
-5. **서버리스 아키텍처**: 람다 기반 마이크로서비스
-
-## 📖 실습 가이드
-
-### 1️⃣ 기초 튜토리얼 (`1.Tutorial/`)
-
-#### 1-1. 간단한 서버 (`1.SimpleServer/`)
-
-**Python 서버 (Streamlit)**
+### 5-1. 서버 실행
 
 ```bash
-cd 1.Tutorial/1.SimpleServer/
-pip install streamlit
-streamlit run app.py
-```
-
-**Node.js 서버**
-
-```bash
-cd 1.Tutorial/1.SimpleServer/
-node server.js
-```
-
-- **학습 내용**: HTTP 서버 기본 동작 원리
-- **기술 스택**: Python(Streamlit), Node.js
-
-#### 1-2. React 이력서 앱 (`3.Resume/`)
-
-```bash
-cd 1.Tutorial/3.Resume/
+cd server
 npm install
+cp .env.example .env
+```
+
+`.env` 파일에 본인의 Gemini API Key를 입력합니다.
+
+```env
+GEMINI_API_KEY=본인의_Gemini_API_Key
+PORT=3000
+GEMINI_MODEL=gemini-2.5-flash
+```
+
+서버 실행:
+
+```bash
 npm start
 ```
 
-- **학습 내용**: React 기반 SPA, 차트 라이브러리 활용
-- **기술 스택**: React, Recharts, Tailwind CSS
-- **특징**: 다크모드, 인터랙티브 차트, 반응형 디자인
-
-### 2️⃣ 랜덤 명언 앱 (`2.RandomTextApp/`)
-
-#### 📊 아키텍처 구조
-
-```
-[React Client] ↔ [Express Server] ↔ [MySQL Database]
-  (프레젠테이션)    (애플리케이션)      (데이터)
-```
-
-#### 🚀 실행 방법
-
-**데이터베이스 설정**
-
-```sql
--- MySQL 데이터베이스 생성
-CREATE DATABASE texts;
-USE texts;
-CREATE TABLE texts (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    text TEXT NOT NULL,
-    username VARCHAR(255) NOT NULL
-);
--- 초기 데이터 삽입 (db.sql 참조)
-```
-
-**백엔드 서버 실행**
+서버 상태 확인:
 
 ```bash
-cd 2.RandomTextApp/server/
+curl http://localhost:3000/health
+```
+
+### 5-2. 클라이언트 실행
+
+`client/app.js` 파일에서 아래 값을 서버 주소로 수정합니다.
+
+```js
+const API_BASE_URL = "http://localhost:3000";
+```
+
+로컬 테스트 시에는 `client/index.html` 파일을 브라우저로 열어 테스트할 수 있습니다.
+
+## 6. AWS 배포 방법
+
+### 6-1. EC2 서버 배포
+
+1. EC2 인스턴스 생성
+2. Security Group 인바운드 규칙 설정
+   - SSH 22: 내 IP만 허용 권장
+   - Custom TCP 3000: 테스트용으로 허용
+3. EC2 접속
+4. Node.js 설치
+5. 프로젝트 업로드 또는 Git clone
+6. 서버 실행
+
+```bash
+cd server
 npm install
-# .env 파일 설정 필요 (DB 연결 정보)
+nano .env
 npm start
 ```
 
-**프론트엔드 실행**
+백그라운드 실행이 필요한 경우:
 
 ```bash
-cd 2.RandomTextApp/client/
-npm install
-# .env 파일에 REACT_APP_SERVER_URL 설정
-npm start
+npm install -g pm2
+pm2 start server.js --name esg-api
+pm2 save
 ```
 
-#### 🔧 기술 스택
+### 6-2. S3 클라이언트 배포
 
-- **Frontend**: React, CSS
-- **Backend**: Node.js, Express, MySQL
-- **Database**: MySQL (RDS 권장)
+1. S3 버킷 생성
+2. 정적 웹사이트 호스팅 활성화
+3. `client/index.html`, `client/style.css`, `client/app.js` 업로드
+4. 퍼블릭 접근 정책 설정
+5. S3 Website endpoint 접속
 
-#### 💡 주요 기능
+배포 전 `client/app.js`의 API 주소를 EC2 주소로 변경해야 합니다.
 
-- 랜덤 명언 조회
-- 새로운 명언 저장 (자동으로 "...아마도..." 추가)
-- 데이터베이스 연결 상태 모니터링
-
-### 3️⃣ AI 노트 앱 (`3.AiNoteApp/`)
-
-#### 📊 아키텍처 구조
-
-```
-[React Client] ↔ [Express Server + Gemini AI] ↔ [MySQL Database]
-  (프레젠테이션)        (애플리케이션)              (데이터)
+```js
+const API_BASE_URL = "http://EC2_PUBLIC_IP:3000";
 ```
 
-#### 🚀 실행 방법
+## 7. 테스트 방법
 
-**환경 변수 설정**
+예시 기업명:
 
-```bash
-# .env 파일
-DB_HOST=your_database_host
-DB_USER=your_database_user
-DB_PASSWORD=your_database_password
-DB_NAME=your_database_name
-GEMINI_API_KEY=your_gemini_api_key
-```
+- Samsung Electronics
+- Hyundai Motor
+- Apple
+- Microsoft
+- Tesla
 
-**백엔드 서버 실행**
+테스트 절차:
 
-```bash
-cd 3.AiNoteApp/server/
-npm install
-npm start
-```
+1. 클라이언트 주소 접속
+2. 기업명 입력
+3. `ESG 리포트 생성` 버튼 클릭
+4. ESG 개요, 탄소 감축 목표, 최근 실적, 전망, 계획 및 목표가 표시되는지 확인
 
-**프론트엔드 실행**
+## 8. 보안 주의사항
 
-```bash
-cd 3.AiNoteApp/client/
-npm install
-npm start
-```
+- `.env` 파일은 GitHub에 업로드하지 않습니다.
+- Gemini API Key를 코드에 직접 작성하지 않습니다.
+- 실제 운영 계정, 비밀번호, API Key를 README에 작성하지 않습니다.
+- 제출 전 `.gitignore`에 `.env`가 포함되어 있는지 확인합니다.
 
-#### 🔧 기술 스택
+## 9. 제출 링크
 
-- **Frontend**: React, CSS
-- **Backend**: Node.js, Express, Google Generative AI
-- **Database**: MySQL (자동 테이블 생성)
-
-#### 💡 주요 기능
-
-- 학습 노트 작성 및 저장
-- Gemini AI를 통한 AWS 서비스 추천
-- 노트 관리 (조회, 삭제)
-
-### 4️⃣ 서버리스 아키텍처 (`4.lambda/`)
-
-#### 📊 아키텍처 구조
-
-```
-[React Client] ↔ [Express Server] ↔ [Lambda Functions] ↔ [Database]
-  (프레젠테이션)     (애플리케이션)       (마이크로서비스)      (데이터)
-```
-
-#### 🚀 실행 방법
-
-**Lambda 함수 배포**
-
-- `bedrock-lambda/`: AWS Bedrock 기반 AI 서비스
-- `gemini-lambda/`: Google Gemini AI 서비스
-
-**백엔드 서버 실행**
-
-```bash
-cd 4.lambda/server/
-npm install
-npm start
-```
-
-**프론트엔드 실행**
-
-```bash
-cd 4.lambda/client/
-npm install
-npm start
-```
-
-#### 🔧 기술 스택
-
-- **Frontend**: React
-- **Backend**: Node.js, Express
-- **Serverless**: AWS Lambda, Python, Node.js
-- **AI Services**: AWS Bedrock (Nova), Google Gemini
-- **Database**: MySQL
-
-#### 💡 주요 기능
-
-- 멀티 AI 서비스 지원 (Gemini, AWS Nova)
-- 서버리스 마이크로서비스 아키텍처
-- 실시간 AI 응답 처리
-
-## 🛠️ 개발 환경 설정
-
-### 필수 요구사항
-
-- **Node.js** 14+
-- **Python** 3.8+
-- **MySQL** 5.7+
-- **AWS 계정** (Lambda, Bedrock 사용시)
-- **Google Cloud 계정** (Gemini API 사용시)
-
-### 권장 개발 도구
-
-- **IDE**: VSCode, WebStorm
-- **Database**: MySQL Workbench, DBeaver
-- **API 테스트**: Postman, Thunder Client
-
-## 🌟 학습 단계별 가이드
-
-### 초급 단계
-
-1. `1.Tutorial/1.SimpleServer/` - 기본 서버 이해
-2. `1.Tutorial/3.Resume/` - React 기초 학습
-3. `2.RandomTextApp/` - 3티어 아키텍처 기본
-
-### 중급 단계
-
-1. `3.AiNoteApp/` - AI 서비스 연동
-2. `4.lambda/` - 서버리스 아키텍처
-3. 클라우드 배포 (AWS EC2, S3, RDS)
-
-### 고급 단계
-
-1. CI/CD 파이프라인 구축
-2. 모니터링 및 로깅 구현
-3. 보안 강화 (HTTPS, 인증)
-4. 성능 최적화
-
-## 📚 추가 학습 자료
-
-### 아키텍처 패턴
-
-- [3-Tier Architecture 상세 설명](https://docs.aws.amazon.com/whitepapers/latest/serverless-multi-tier-architectures-api-gateway-lambda/three-tier-architecture-overview.html)
-- [마이크로서비스 아키텍처](https://aws.amazon.com/microservices/)
-
-### 클라우드 서비스
-
-- [AWS Lambda 시작하기](https://docs.aws.amazon.com/lambda/)
-- [AWS Bedrock 문서](https://docs.aws.amazon.com/bedrock/)
-- [Google Gemini API](https://ai.google.dev/docs)
-
-### 개발 도구
-
-- [React 공식 문서](https://reactjs.org/docs)
-- [Express.js 가이드](https://expressjs.com/ko/guide/)
-- [MySQL 튜토리얼](https://dev.mysql.com/doc/)
-
----
-
-**즐거운 학습되세요! 🚀**
+- GitHub Repository: 제출 시 본인 GitHub 주소 입력
+- Client URL: 제출 시 S3 정적 웹사이트 주소 입력

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ESG Insight Finder</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="badge">AWS Cloud Computing Project</div>
+      <h1>ESG Insight Finder</h1>
+      <p>
+        기업명을 입력하면 AI가 ESG 정보, 탄소 감축 목표, 실적, 전망, 계획을
+        리포트 형태로 정리합니다.
+      </p>
+
+      <form id="searchForm" class="search-box">
+        <input
+          id="companyInput"
+          type="text"
+          placeholder="예: Samsung Electronics, Hyundai Motor, Apple"
+          autocomplete="off"
+        />
+        <button type="submit">ESG 리포트 생성</button>
+      </form>
+
+      <div class="sample-row">
+        <button class="sample-btn" data-company="Samsung Electronics">Samsung Electronics</button>
+        <button class="sample-btn" data-company="Hyundai Motor">Hyundai Motor</button>
+        <button class="sample-btn" data-company="Apple">Apple</button>
+        <button class="sample-btn" data-company="Tesla">Tesla</button>
+      </div>
+    </section>
+
+    <section class="status-panel">
+      <div>
+        <span class="status-label">API Server</span>
+        <strong id="apiStatus">확인 전</strong>
+      </div>
+      <div>
+        <span class="status-label">최근 검색</span>
+        <strong id="recentSearches">없음</strong>
+      </div>
+    </section>
+
+    <section id="loading" class="loading hidden">
+      <div class="spinner"></div>
+      <p>Gemini가 ESG 리포트를 생성하고 있습니다...</p>
+    </section>
+
+    <section id="errorBox" class="error hidden"></section>
+
+    <section id="result" class="result hidden">
+      <div class="result-header">
+        <div>
+          <span class="badge">AI ESG Report</span>
+          <h2 id="companyName"></h2>
+        </div>
+        <p id="createdAt"></p>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <span>01</span>
+          <h3>ESG 개요</h3>
+          <p id="esgOverview"></p>
+        </article>
+
+        <article class="card">
+          <span>02</span>
+          <h3>탄소 감축 목표</h3>
+          <p id="carbonTarget"></p>
+        </article>
+
+        <article class="card">
+          <span>03</span>
+          <h3>최근 실적</h3>
+          <p id="performance"></p>
+        </article>
+
+        <article class="card">
+          <span>04</span>
+          <h3>향후 전망</h3>
+          <p id="outlook"></p>
+        </article>
+
+        <article class="card wide">
+          <span>05</span>
+          <h3>계획 및 목표</h3>
+          <p id="plans"></p>
+        </article>
+      </div>
+
+      <p id="caution" class="caution"></p>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
